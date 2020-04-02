@@ -1,0 +1,22 @@
+::ng-deep.mat-form-field-disabled .mat-form-field-underline { display: none; }
+.mat-toolbar-row { 
+  // height: 50px;
+    align-items: normal;
+}
+// mat-form-field {
+//     width: 100%;
+// }
+.mat-input-element:disabled {
+    color: rgba(0,0,0,.87);
+}
+
+.i_num {
+    width: 4em;
+    text-align: right;
+    margin:0px;   
+}
+// mat-select {
+//     padding: 6px 0px 6px 0px;   /* 10px left and right padding*/
+//     box-sizing: border-box;
+//     border-radius: 5px;
+// }
