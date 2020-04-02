@@ -2,7 +2,7 @@
   "name": "mwjstc",
   "version": "0.0.0",
   "engines": {
-    "node": "10.15.0"
+    "node": "12.11.1"
   },
   "scripts": {
     "ng": "ng",
