@@ -45,7 +45,7 @@ export class ViewStockComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private elementRef: ElementRef,
-              private http: HttpClient
+              private http: HttpClient,
               private apollo: Apollo) { }
 
   ngOnInit(): void {
