@@ -19,6 +19,8 @@
             <mat-icon>autorenew</mat-icon>
             再表示(F5)
           </button>
+          <button  mat-button (click)="outputCsv($event)">ダウンロード</button>
+          <a id="csv-donwload" data-type="text/csv"></a>
         </div>
         <div class="icon-area" fxLayout="row" fxShow="true" fxHide.gt-sm="true">
           <button mat-button>
@@ -33,6 +35,8 @@
           <button mat-button (click)="refresh()">
             <mat-icon>autorenew</mat-icon>
           </button>
+          <button type="button" class="btn btn1" (click)="outputCsv($event)">CSV出力</button>
+          <a id="csv-donwload"></a>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>

@@ -34,5 +34,13 @@ query get_stock($gcode: String!,$scode: String!)  {
     sct10
     sct11
     sct12
+    tbltrans {
+      sday
+      ttype
+      suu
+      denno
+      mline
+      biko
+    }
   }
 }`;

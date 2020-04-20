@@ -7,11 +7,16 @@ import { GoodsService } from '../goods.service';
 // import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import * as Query from '../graph-ql/queries';
+import * as fs from 'fs';
 
 interface Store {
   scode: string;
   sname: string;
 }
+interface ActiveXObject {
+  new(s: string): any;
+}
+declare const ActiveXObject: ActiveXObject;
 
 @Component({
   selector: 'app-view-stock',
@@ -23,6 +28,7 @@ export class ViewStockComponent implements OnInit {
   public stores:Store[]=[];
   public scode: string="";
   public gcode: string="";
+  public sukbn: number=0;
   public gname: string="";
   public stock: number=0;
   public juzan: number=0;
@@ -158,7 +164,43 @@ export class ViewStockComponent implements OnInit {
           // console.log("Query",this.stock)
           this.setGname();
         });
-    }
-    ;
+      this.apollo.watchQuery<any>({
+        query: Query.GetQuery3,
+        variables: { 
+          gcode : this.gcode ,
+          scode : this.scode
+          },
+        })
+        .valueChanges
+        .subscribe(({ data }) => {
+          // console.log("ref_Query",data.tblstock);
+          this.stock = data.tblstock[0].stock;
+          this.juzan = data.tblstock[0].juzan;
+          this.htzan = data.tblstock[0].htzan;
+          // console.log("Queryp",pgcode);
+          this.gcdbk = this.gcode;
+          // console.log("Queryg",this.gcode);
+          this.scdbk = this.scode;
+          // console.log("Query",this.stock)
+          this.setGname();
+        });
+    };
+  }
+  public async outputCsv(event: any): Promise<any> {
+        
+    const csv = 'テストデータです';
+
+    // CSV ファイルは `UTF-8 BOM有り` で出力する
+    // そうすることで Excel で開いたときに文字化けせずに表示できる
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    // CSVファイルを出力するために Blob 型のインスタンスを作る
+    const blob = new Blob([bom, csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link: HTMLAnchorElement = this.elementRef.nativeElement.querySelector('#csv-donwload') as HTMLAnchorElement;
+    link.href = url;
+    link.download = 'test.csv';
+    link.click();
+
   }
 }

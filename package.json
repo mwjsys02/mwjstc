@@ -15,6 +15,9 @@
     "e2e": "ng e2e"
   },
   "private": true,
+  "browser":{
+    "child_process": false
+  }, 
   "dependencies": {
     "@angular/animations": "~9.0.1",
     "@angular/cdk": "^9.1.1",
