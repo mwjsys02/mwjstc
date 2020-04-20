@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 app.post('/assets/dummy.js',function (req, res, next) {
 // app.use(function (req, res, next) {
   console.log('postest:', Date.now());
+  console.log('postest_:', require('child_process'));
   exec("C:/WINDOWS/system32/notepad.exe C:/work/test.txt");
   next() 
 });
