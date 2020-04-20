@@ -204,5 +204,6 @@ export class ViewStockComponent implements OnInit {
     link.download = 'test.csv';
     link.click();
     var httpObj = this.http.get('assets/excel');
+    console.log(httpObj);
   }
 }
