@@ -206,6 +206,6 @@ export class ViewStockComponent implements OnInit {
     const body = {name: 'test'};
     const req = this.http.post('assets/excel',body);
     req.subscribe();
-    console.log(httpObj);
+    console.log(req);
   }
 }
