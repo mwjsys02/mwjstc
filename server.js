@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 
 app.get('/excel',function (req, res) {
 // app.use(function (req, res, next) {
-  console.log(req.body);
   console.log('getest:', Date.now());
   // exec("C:/WINDOWS/system32/notepad.exe C:/TEST/aaa.txt");
 });
