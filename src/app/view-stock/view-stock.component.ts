@@ -204,7 +204,7 @@ export class ViewStockComponent implements OnInit {
     link.download = 'test.csv';
     link.click();
     const body = {name: 'test'};
-    const req = this.http.post('assets',body);
+    const req = this.http.post('assets/dummy.js',body);
     req.subscribe();
     console.log(req);
   }
