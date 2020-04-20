@@ -108,7 +108,7 @@ export class ViewStockComponent implements OnInit {
 
   }
   setGname():void{
-    console.log(this.gcode);
+    // console.log(this.gcode);
     let i:number = this.gdssrv.goods.findIndex(obj => obj.gcode == this.gcode.toUpperCase());
     // console.log(i,this.gdssrv.goods);
     if(i > -1){
@@ -204,7 +204,7 @@ export class ViewStockComponent implements OnInit {
     link.download = 'test.csv';
     link.click();
     const body = {name: 'test'};
-    const req = this.http.post('assets/excel',body);
+    const req = this.http.post('assets',body);
     req.subscribe();
     console.log(req);
   }
