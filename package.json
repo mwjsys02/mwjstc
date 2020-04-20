@@ -15,9 +15,9 @@
     "e2e": "ng e2e"
   },
   "private": true,
-  "browser":{
+  "browser": {
     "child_process": false
-  }, 
+  },
   "dependencies": {
     "@angular/animations": "~9.0.1",
     "@angular/cdk": "^9.1.1",
@@ -37,6 +37,7 @@
     "apollo-angular-link-http": "^1.9.0",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
+    "encoding-japanese": "^1.0.30",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
