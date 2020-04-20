@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { GcdtblComponent } from './gcdtbl/gcdtbl.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { GcdtblComponent } from './gcdtbl/gcdtbl.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
-    GraphQLModule
+    GraphQLModule,
+    HttpClientModule
 
     ,MatButtonModule
     ,MatCardModule

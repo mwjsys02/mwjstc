@@ -12,9 +12,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(`${__dirname}/dist/index.html`));
 });
 
-app.get('/excel',function (req, res, next) {
+app.get('/excel',function (req, res) {
 // app.use(function (req, res, next) {
-  console.log('use:', Date.now());
+  console.log(req.body);
+  console.log('getest:', Date.now());
   // exec("C:/WINDOWS/system32/notepad.exe C:/TEST/aaa.txt");
 });
 

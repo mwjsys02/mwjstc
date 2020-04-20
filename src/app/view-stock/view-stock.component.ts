@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
 import { GoodsService } from '../goods.service';
+import { HttpClient } from '@angular/common/http';
 // import { StockService } from '../stock.service';
 // import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
@@ -44,6 +45,7 @@ export class ViewStockComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private elementRef: ElementRef,
+              private http: HttpClient
               private apollo: Apollo) { }
 
   ngOnInit(): void {
@@ -201,6 +203,6 @@ export class ViewStockComponent implements OnInit {
     link.href = url;
     link.download = 'test.csv';
     link.click();
-
+    this.http.get(/excel);
   }
 }

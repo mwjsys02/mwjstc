@@ -15,10 +15,10 @@ const routes: Routes = [
   {
     path: 'stock/:gcd',
     component: ViewStockComponent
-  },
-  {
-    path: 'excel',
-    component: ViewStockComponent
+  // },
+  // {
+  //   path: 'excel',
+  //   component: ViewStockComponent
   }
 ];
 
