@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const GetQuery1 = gql`
 query get_goods {
-  tblgoods {
+  tblgoods(order_by: {gcode: asc}) {
     gcode
     gname
     sukbn
@@ -34,13 +34,5 @@ query get_stock($gcode: String!,$scode: String!)  {
     sct10
     sct11
     sct12
-    tbltrans {
-      sday
-      ttype
-      suu
-      denno
-      mline
-      biko
-    }
   }
 }`;

@@ -3,30 +3,33 @@
     <mat-toolbar class="toolbar mat-elevation-z8" color="primary">
       <mat-toolbar-row class="toolbar">
         <div class="icon-area" fxLayout="row" fxLayoutGap="5px" fxShow="true" fxHide.lt-md="true">
-          <button mat-button>
+          <button mat-button (click)="setNext()">
             <mat-icon>keyboard_arrow_up</mat-icon>
-            次の商品(F2)
+            次の商品
           </button>
-          <button mat-button>
+          <button mat-button (click)="setPrev()">
             <mat-icon>keyboard_arrow_down</mat-icon>
-            前の商品(F3)
+            前の商品
           </button>  
           <button mat-button (click)="gcdHelp()">
             <mat-icon>find_replace</mat-icon>
-            商品検索(F4)
+            商品検索
           </button>
           <button mat-button (click)="refresh()">
             <mat-icon>autorenew</mat-icon>
-            再表示(F5)
+            再表示
           </button>
-          <button  mat-button (click)="outputCsv($event)">ダウンロード</button>
+          <button  mat-button (click)="outputCsv($event)">
+            <mat-icon>cloud_download</mat-icon>
+            ダウンロード
+          </button>
           <a id="csv-donwload" data-type="text/csv"></a>
         </div>
         <div class="icon-area" fxLayout="row" fxShow="true" fxHide.gt-sm="true">
-          <button mat-button>
+          <button mat-button (click)="setNext()">
             <mat-icon>keyboard_arrow_up</mat-icon>
           </button>
-          <button mat-button>
+          <button mat-button (click)="setPrev()">
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>  
           <button mat-button (click)="gcdHelp()">
@@ -45,10 +48,11 @@
     <form fxLayout="row wrap" fxLayoutAlign="start baseline" fxLayoutGap="5px">
       <mat-form-field fxFlex="0 0 10em">
         <mat-label>商品コード</mat-label>
-        <input matInput [ngModel]="gcode | uppercase" (ngModelChange)="gcode=$event" (keyup.enter)="onEnter()" (keydown.f4)="gcdHelp()" (contextmenu)="contxtMenu()" (change)="setGname()" (blur)="setGname()" [ngModelOptions]="{standalone: true}">
+        <input matInput [ngModel]="gcode | uppercase" (ngModelChange)="gcode=$event" (keyup.enter)="onEnter()" (keydown.f4)="gcdHelp()"
+         (contextmenu)="contxtMenu()" (change)="refresh()" (blur)="refresh()" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
       <mat-form-field fxFlex="0 0 10em" fxFlexOffset="10px">
-        <mat-select [placeholder]="placehold" [(value)]="scode">
+        <mat-select [placeholder]="placehold" [(value)]="scode" (openedChange)="refresh()">
           <ng-container *ngFor="let store of get_Store()">
             <mat-option value="{{ store.scode }}">{{ store.scode }} {{ store.sname }}</mat-option>
           </ng-container>

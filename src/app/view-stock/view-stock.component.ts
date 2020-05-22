@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
 import { GoodsService } from '../goods.service';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 // import { StockService } from '../stock.service';
 // import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
@@ -14,10 +14,10 @@ interface Store {
   scode: string;
   sname: string;
 }
-interface ActiveXObject {
-  new(s: string): any;
-}
-declare const ActiveXObject: ActiveXObject;
+// interface ActiveXObject {
+//   new(s: string): any;
+// }
+// declare const ActiveXObject: ActiveXObject;
 
 @Component({
   selector: 'app-view-stock',
@@ -45,7 +45,7 @@ export class ViewStockComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private elementRef: ElementRef,
-              private http: HttpClient,
+              // private http: HttpClient,
               private apollo: Apollo) { }
 
   ngOnInit(): void {
@@ -64,8 +64,8 @@ export class ViewStockComponent implements OnInit {
     //   });
 
     if (typeof this.route.snapshot.params.gcd != "undefined") {
-      this.gcode= this.route.snapshot.params.gcd;
-      this.scode= '01';
+      this.gcode= this.route.snapshot.params.gcd.toUpperCase();
+      this.scode= this.route.snapshot.params.scd;
       // console.log(this.gcode,this.scode);
       // console.log(this.stcsrv.get_Stock(this.gcode,this.scode));
       // this.stock = this.stcsrv.get_Stock(this.gcode,this.scode).stock;
@@ -109,10 +109,11 @@ export class ViewStockComponent implements OnInit {
   }
   setGname():void{
     // console.log(this.gcode);
-    let i:number = this.gdssrv.goods.findIndex(obj => obj.gcode == this.gcode.toUpperCase());
-    // console.log(i,this.gdssrv.goods);
+    
+    let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
+    // console.log(i,this.gdssrv.get_Goods());
     if(i > -1){
-      this.gname = this.gdssrv.goods[i].gname;
+      this.gname = this.gdssrv.get_Goods()[i].gname;
     } else {
       this.gname = '商品コード未登録';
     }
@@ -133,9 +134,26 @@ export class ViewStockComponent implements OnInit {
     return this.stores;
   }
 
-    onEnter(): void {
+  setNext(){
+    let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
+    if(i > -1 && i < this.gdssrv.get_Goods().length){
+      this.gcode = this.gdssrv.get_Goods()[i+1].gcode;
+      this.refresh();
+    }  
+  }
+
+  setPrev(){
+    let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
+    if(i > 0 ){
+      this.gcode = this.gdssrv.get_Goods()[i-1].gcode;
+      this.refresh();
+    }  
+  }
+
+  onEnter(): void {
     // console.log("Enter",this.elementRef.nativeElement.querySelector('button'));
     this.elementRef.nativeElement.querySelector('button').focus();
+    this.refresh();
   }
 
   refresh():void {
@@ -159,6 +177,7 @@ export class ViewStockComponent implements OnInit {
           this.stock = data.tblstock[0].stock;
           this.juzan = data.tblstock[0].juzan;
           this.htzan = data.tblstock[0].htzan;
+
           // console.log("Queryp",pgcode);
           this.gcdbk = this.gcode;
           // console.log("Queryg",this.gcode);
@@ -166,26 +185,26 @@ export class ViewStockComponent implements OnInit {
           // console.log("Query",this.stock)
           this.setGname();
         });
-      this.apollo.watchQuery<any>({
-        query: Query.GetQuery3,
-        variables: { 
-          gcode : this.gcode ,
-          scode : this.scode
-          },
-        })
-        .valueChanges
-        .subscribe(({ data }) => {
-          // console.log("ref_Query",data.tblstock);
-          this.stock = data.tblstock[0].stock;
-          this.juzan = data.tblstock[0].juzan;
-          this.htzan = data.tblstock[0].htzan;
-          // console.log("Queryp",pgcode);
-          this.gcdbk = this.gcode;
-          // console.log("Queryg",this.gcode);
-          this.scdbk = this.scode;
-          // console.log("Query",this.stock)
-          this.setGname();
-        });
+      // this.apollo.watchQuery<any>({
+      //   query: Query.GetQuery3,
+      //   variables: { 
+      //     gcode : this.gcode ,
+      //     scode : this.scode
+      //     },
+      //   })
+      //   .valueChanges
+      //   .subscribe(({ data }) => {
+      //     // console.log("ref_Query",data.tblstock);
+      //     this.stock = data.tblstock[0].stock;
+      //     this.juzan = data.tblstock[0].juzan;
+      //     this.htzan = data.tblstock[0].htzan;
+      //     // console.log("Queryp",pgcode);
+      //     this.gcdbk = this.gcode;
+      //     // console.log("Queryg",this.gcode);
+      //     this.scdbk = this.scode;
+      //     console.log("Query",this.stock)
+      //     this.setGname();
+      //   });
     };
   }
   public async outputCsv(event: any): Promise<any> {
@@ -203,9 +222,11 @@ export class ViewStockComponent implements OnInit {
     link.href = url;
     link.download = 'test.csv';
     link.click();
-    const body = {name: 'test'};
-    const req = this.http.post('assets/dummy.js',body);
-    req.subscribe();
-    console.log(req);
+    // const body = {name: 'test'};
+    // const req = this.http.post('assets/dummy.js',body);
+    // req.subscribe();
+    // console.log(req);
+    link.href = 'Mwjexe://1ttest1.csv/';
+    link.click();
   }
 }

@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ViewStockComponent
   },
   {
-    path: 'stock/:gcd',
+    path: 'stock/:gcd/:scd',
     component: ViewStockComponent
   // },
   // {
