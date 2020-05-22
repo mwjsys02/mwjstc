@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
 import { GoodsService } from '../goods.service';
 // import { HttpClient } from '@angular/common/http';
-// import { StockService } from '../stock.service';
+import { StockService } from '../stock.service';
 // import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import * as Query from '../graph-ql/queries';
@@ -41,7 +41,7 @@ export class ViewStockComponent implements OnInit {
   public gcdbk: string="";
   
   constructor(private gdssrv: GoodsService,
-              // private stcsrv: StockService,
+              private stcsrv: StockService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private elementRef: ElementRef,
@@ -50,6 +50,7 @@ export class ViewStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.placehold = '倉庫読込中';
+    this.scode = '01';
     this.get_Store();
     this.gdssrv.get_Goods();
     // this.stcsrv.observe.subscribe();
@@ -177,7 +178,19 @@ export class ViewStockComponent implements OnInit {
           this.stock = data.tblstock[0].stock;
           this.juzan = data.tblstock[0].juzan;
           this.htzan = data.tblstock[0].htzan;
-
+          this.stcsrv.shcnt[0] = data.tblstock[0].sct01;
+          this.stcsrv.shcnt[1] = data.tblstock[0].sct02;
+          this.stcsrv.shcnt[2] = data.tblstock[0].sct03;
+          this.stcsrv.shcnt[3] = data.tblstock[0].sct04;
+          this.stcsrv.shcnt[4] = data.tblstock[0].sct05;
+          this.stcsrv.shcnt[5] = data.tblstock[0].sct06;
+          this.stcsrv.shcnt[6] = data.tblstock[0].sct07;
+          this.stcsrv.shcnt[7] = data.tblstock[0].sct08;
+          this.stcsrv.shcnt[8] = data.tblstock[0].sct09;
+          this.stcsrv.shcnt[9] = data.tblstock[0].sct10;
+          this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
+          this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
+          this.moavg = this.stcsrv.get_Scavg();
           // console.log("Queryp",pgcode);
           this.gcdbk = this.gcode;
           // console.log("Queryg",this.gcode);
