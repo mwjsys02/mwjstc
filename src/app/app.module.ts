@@ -22,13 +22,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { GcdtblComponent } from './gcdtbl/gcdtbl.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TrantblComponent } from './trantbl/trantbl.component';
+import { BlankPipe } from './pipes/blank.pipe';
+import { StcstblComponent } from './stcstbl/stcstbl.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewStockComponent,
     GcodeHelpComponent,
-    GcdtblComponent
+    GcdtblComponent,
+    TrantblComponent,
+    BlankPipe,
+    StcstblComponent
   ],
   imports: [
     BrowserModule,

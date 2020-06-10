@@ -6,7 +6,7 @@ import * as Query from './graph-ql/queries';
 export interface Goods {
   gcode: string;
   gname: string;
-  sukbn: number;
+  sukbn: string;
 }
 
 @Injectable({

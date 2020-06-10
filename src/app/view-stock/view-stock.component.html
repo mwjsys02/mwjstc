@@ -38,8 +38,8 @@
           <button mat-button (click)="refresh()">
             <mat-icon>autorenew</mat-icon>
           </button>
-          <button type="button" class="btn btn1" (click)="outputCsv($event)">CSV出力</button>
-          <a id="csv-donwload"></a>
+          <!-- <button type="button" class="btn btn1" (click)="outputCsv($event)">CSV出力</button>
+          <a id="csv-donwload"></a> -->
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -49,10 +49,10 @@
       <mat-form-field fxFlex="0 0 10em">
         <mat-label>商品コード</mat-label>
         <input matInput [ngModel]="gcode | uppercase" (ngModelChange)="gcode=$event" (keyup.enter)="onEnter()" (keydown.f4)="gcdHelp()"
-         (contextmenu)="contxtMenu()" (change)="refresh()" (blur)="refresh()" [ngModelOptions]="{standalone: true}">
+         (contextmenu)="contxtMenu()" (change)="refresh()" (blur)="refresh()" [ngModelOptions]="{standalone: true}" required>
       </mat-form-field>
       <mat-form-field fxFlex="0 0 10em" fxFlexOffset="10px">
-        <mat-select [placeholder]="placehold" [(value)]="scode" (openedChange)="refresh()">
+        <mat-select [placeholder]="placehold" [(value)]="scode" (openedChange)="refresh()" required>
           <ng-container *ngFor="let store of get_Store()">
             <mat-option value="{{ store.scode }}">{{ store.scode }} {{ store.sname }}</mat-option>
           </ng-container>
@@ -62,38 +62,46 @@
         <mat-label>商品名</mat-label>
         <input matInput [value]="gname" disabled>
       </mat-form-field>
-      <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
-        <mat-label>受注可能数</mat-label>
-        <input matInput numberInput value="{{stock - juzan}}" disabled class="i_num">
-      </mat-form-field>
-      <mat-form-field style="width:4em">
-        <mat-label>在庫数</mat-label>
-        <input matInput numberInput [value]="stock" disabled class="i_num">
-      </mat-form-field>
-      <mat-form-field style="width:4em">
-        <mat-label>受注残</mat-label>
-        <input matInput numberInput [value]="juzan" disabled class="i_num">
-      </mat-form-field>
-      <mat-form-field style="width:10em">
-        <mat-label>最短入荷日</mat-label>
-        <input matInput [value]="ndate | date:'yy/MM/dd'" disabled>
-      </mat-form-field>
-      <mat-form-field style="width:4em">
-        <mat-label>最短入荷数</mat-label>
-        <input matInput numberInput [value]="incnt" disabled class="i_num">
-      </mat-form-field>
-      <mat-form-field style="width:4em">
-        <mat-label>発注残</mat-label>
-        <input matInput numberInput [value]="htzan" disabled class="i_num">
-      </mat-form-field>
-      <mat-form-field style="width:4em">
+      <div [style.display]="sukbn=='在庫品' ? 'inline' : 'none'">
+        <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
+          <mat-label>受注可能数</mat-label>
+          <input matInput numberInput value="{{stock - juzan}}" disabled class="i_num">
+        </mat-form-field>
+        <mat-form-field style="width:4em">
+          <mat-label>在庫数</mat-label>
+          <input matInput numberInput [value]="stock" disabled class="i_num">
+        </mat-form-field>
+        <mat-form-field style="width:4em">
+          <mat-label>受注残</mat-label>
+          <input matInput numberInput [value]="juzan" disabled class="i_num">
+        </mat-form-field>
+        <mat-form-field style="width:12em">
+          <mat-label>入荷予定日</mat-label>
+          <input matInput [value]="ndate | blank" disabled>
+        </mat-form-field>
+        <mat-form-field style="width:4em">
+          <mat-label>入荷予定数</mat-label>
+          <input matInput numberInput [value]="incnt" disabled class="i_num">
+        </mat-form-field>
+        <mat-form-field style="width:4em">
+          <mat-label>発注残</mat-label>
+          <input matInput numberInput [value]="htzan" disabled class="i_num">
+        </mat-form-field>
+      </div>
+      <div [style.display]="sukbn=='セット品' ? 'inline' : 'none'">
+        <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
+          <mat-label>受注可能数</mat-label>
+          <input matInput numberInput value="{{stssrv.get_paabl()}}"disabled class="i_num">
+        </mat-form-field>  
+      </div>
+      <mat-form-field style="width:6em">
         <mat-label>月平均出荷数</mat-label>
         <input matInput numberInput [value]="moavg | number:'1.2-2'" disabled class="i_num">
       </mat-form-field>
-
     </form>
   </mat-card-subtitle>
   <mat-card-content>
-
+    <app-trantbl [style.display]="sukbn=='在庫品' ? 'table' : 'none'"></app-trantbl>
+    <app-stcstbl [style.display]="sukbn=='セット品' ? 'table' : 'none'"></app-stcstbl>
   </mat-card-content>
 </mat-card>

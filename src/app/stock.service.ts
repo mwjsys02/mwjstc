@@ -37,7 +37,7 @@ export class StockService {
   public scavg:number;
   constructor() {}
   get_Scavg():number {
-    console.log(this.shcnt);
+    // console.log(this.shcnt);
     this.scavg = this.shcnt.reduce((a,b)=>{return a+b;}) / 12;
     return this.scavg;
   }

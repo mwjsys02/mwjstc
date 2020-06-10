@@ -14,7 +14,7 @@ export class GcdtblComponent implements OnInit {
   public filters: any = [{id:'gcode',value:''},
                          {id:'gname',value:''}];
   dataSource:MatTableDataSource<Goods>;
-  displayedColumns = ['gcode','gname'];
+  displayedColumns = ['gcode','gname','sukbn'];
   constructor(public gdsservice:GoodsService,
               private elementRef: ElementRef) { 
     this.dataSource= new MatTableDataSource<Goods>(this.gdsservice.get_Goods());
