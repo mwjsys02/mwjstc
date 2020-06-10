@@ -18,7 +18,7 @@ query get_store {
 
 export const GetQuery3 = gql`
 query get_stock($gcode: String!,$scode: String!)  {
-  tblstock(where: {gcode: {_ilike:$gcode}, storeid: {_ilike:$scode}}) {
+  tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
     htzan
     juzan
     stock
@@ -70,6 +70,29 @@ query get_utwk($gcode: String!,$scode: String!)  {
     }
   }
   tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
+    sct01
+    sct02
+    sct03
+    sct04
+    sct05
+    sct06
+    sct07
+    sct08
+    sct09
+    sct10
+    sct11
+    sct12
+  }
+}`;
+
+export const GetQuery5 = gql`
+query get_allstc  {
+  tblstock {
+    gcode
+    storeid
+    htzan
+    juzan
+    stock
     sct01
     sct02
     sct03

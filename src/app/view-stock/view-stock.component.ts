@@ -254,46 +254,17 @@ export class ViewStockComponent implements OnInit {
         });
     }      
   }
-  public async outputCsv(event: any): Promise<any> {
-    let csv:string="";
-    this.apollo.watchQuery<any>({
-      query: Query.GetQuery3,
-      variables: { 
-        gcode : '%' ,
-        scode : '%'
-        },
-      })
-      .valueChanges
-      .subscribe(({ data }) => {
-        // let csv:string;
-        // for (let i=0; i < data.tblstock.length; i++ ){  
-        //   CSV = data.tblstock[i].gcode + ',' 
-        //       + data.tblstock[i].storeid + ','
-        //       + data.tblstock[i].stock + ',' 
-        //       + data.tblstock[i].juzan + ','
-        //       + data.tblstock[i].htzan + ','
-        //       + data.tblstock[0].sct01 + ','
-        //       + data.tblstock[0].sct02 + ','
-        //       + data.tblstock[0].sct03 + ','
-        //       + data.tblstock[0].sct04 + ','
-        //       + data.tblstock[0].sct05 + ','
-        //       + data.tblstock[0].sct06 + ','
-        //       + data.tblstock[0].sct07 + ','
-        //       + data.tblstock[0].sct08 + ','
-        //       + data.tblstock[0].sct09 + ','
-        //       + data.tblstock[0].sct10 + ','
-        //       + data.tblstock[0].sct11 + ','
-        //       + data.tblstock[0].sct12 + ;
-        // } 
-        csv = json2csv.Parser.parse(data);
-        console.log(csv); 
-      });
+  public async outputCsv(event: any) {
+    // let csv:string="";
+    // console.log("output",this.gcode); 
+    // console.log("外",csv); 
 
-    // CSV ファイルは `UTF-8 BOM有り` で出力する
-    // そうすることで Excel で開いたときに文字化けせずに表示できる
+
+    // // CSV ファイルは `UTF-8 BOM有り` で出力する
+    // // そうすることで Excel で開いたときに文字化けせずに表示できる
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     // CSVファイルを出力するために Blob 型のインスタンスを作る
-    const blob = new Blob([bom, csv], { type: 'text/csv' });
+    const blob = new Blob([bom, await this.get_Json()], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
     const link: HTMLAnchorElement = this.elementRef.nativeElement.querySelector('#csv-donwload') as HTMLAnchorElement;
@@ -301,7 +272,40 @@ export class ViewStockComponent implements OnInit {
     link.download = 'test.csv';
     link.click();
 
-    // link.href = 'Mwjexe://1ttest1.csv/';
-    // link.click();
+    link.href = 'Mwjexe://1ttest1.csv/';
+    link.click();
   }
+  get_Json():Promise<string>{
+    return new Promise<string>(resolve => {
+        this.apollo.watchQuery<any>({
+        query: Query.GetQuery5
+        })
+        .valueChanges
+        .subscribe(({ data }) => {
+          // let csv:string;
+          // for (let i=0; i < data.tblstock.length; i++ ){  
+          //   CSV = data.tblstock[i].gcode + ',' 
+          //       + data.tblstock[i].storeid + ','
+          //       + data.tblstock[i].stock + ',' 
+          //       + data.tblstock[i].juzan + ','
+          //       + data.tblstock[i].htzan + ','
+          //       + data.tblstock[0].sct01 + ','
+          //       + data.tblstock[0].sct02 + ','
+          //       + data.tblstock[0].sct03 + ','
+          //       + data.tblstock[0].sct04 + ','
+          //       + data.tblstock[0].sct05 + ','
+          //       + data.tblstock[0].sct06 + ','
+          //       + data.tblstock[0].sct07 + ','
+          //       + data.tblstock[0].sct08 + ','
+          //       + data.tblstock[0].sct09 + ','
+          //       + data.tblstock[0].sct10 + ','
+          //       + data.tblstock[0].sct11 + ','
+          //       + data.tblstock[0].sct12 + ;
+          // } 
+          // console.log("subscribe",json2csv.parse(data.tblstock));
+          resolve(json2csv.parse(data.tblstock));
+        });
+    });  
+  }
+
 }
