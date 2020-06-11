@@ -25,6 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TrantblComponent } from './trantbl/trantbl.component';
 import { BlankPipe } from './pipes/blank.pipe';
 import { StcstblComponent } from './stcstbl/stcstbl.component';
+import { ShcntChartComponent } from './shcnt-chart/shcnt-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { StcstblComponent } from './stcstbl/stcstbl.component';
     GcdtblComponent,
     TrantblComponent,
     BlankPipe,
-    StcstblComponent
+    StcstblComponent,
+    ShcntChartComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { StcstblComponent } from './stcstbl/stcstbl.component';
     FlexLayoutModule,
     FormsModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxChartsModule
 
     ,MatButtonModule
     ,MatCardModule
@@ -58,6 +62,6 @@ import { StcstblComponent } from './stcstbl/stcstbl.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [GcodeHelpComponent]
+  entryComponents: [GcodeHelpComponent,ShcntChartComponent]
 })
 export class AppModule { }

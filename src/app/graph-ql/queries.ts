@@ -38,6 +38,7 @@ query get_stock($gcode: String!,$scode: String!)  {
     incnt
     gcode
     storeid
+    created_at
     tbltrans {
       gcode
       sday

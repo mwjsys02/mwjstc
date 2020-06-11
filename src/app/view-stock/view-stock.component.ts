@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef ,ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
+import { ShcntChartComponent } from '../shcnt-chart/shcnt-chart.component';
 import { TrantblComponent } from '../trantbl/trantbl.component';
 import { StcstblComponent } from '../stcstbl/stcstbl.component';
 import { TransService } from '../trans.service';
@@ -42,6 +43,7 @@ export class ViewStockComponent implements OnInit {
   public incnt: number=0;
   public htzan: number=0;
   public moavg: number=0;
+  public utime: Date;
   // public scdbk: string="";
   // public gcdbk: string="";
   @ViewChild(TrantblComponent,{static: false})
@@ -121,6 +123,21 @@ export class ViewStockComponent implements OnInit {
     );
 
   }
+
+  showChart(): void {
+    let dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+    
+    dialogConfig.data = {
+        shcnt: this.stcsrv.shcnt,
+        utime: this.utime
+    };
+    
+    let dialogRef = this.dialog.open(ShcntChartComponent, dialogConfig);
+
+  } 
+
   setGname():void{
     // console.log(this.gcode);
     
@@ -214,6 +231,7 @@ export class ViewStockComponent implements OnInit {
           this.moavg = this.stcsrv.get_Scavg();
           this.ndate = data.tblstock[0].ndate;
           this.incnt = data.tblstock[0].incnt;
+          this.utime = data.tblstock[0].created_at;
           for (let i=0; i < data.tblstock[0].tbltrans.length; i++ ){
             this.trnsrv.set_tblData(data.tblstock[0].tbltrans[i]);
           }

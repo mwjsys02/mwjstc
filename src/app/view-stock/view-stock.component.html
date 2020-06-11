@@ -19,6 +19,10 @@
             <mat-icon>autorenew</mat-icon>
             再表示
           </button>
+          <button  mat-button (click)="showChart()">
+            <mat-icon>poll</mat-icon>
+            月別出荷数
+          </button>
           <button  mat-button (click)="outputCsv($event)">
             <mat-icon>cloud_download</mat-icon>
             ダウンロード
@@ -37,6 +41,9 @@
           </button>
           <button mat-button (click)="refresh()">
             <mat-icon>autorenew</mat-icon>
+          </button>
+          <button  mat-button (click)="showChart()">
+            <mat-icon>poll</mat-icon>
           </button>
           <!-- <button type="button" class="btn btn1" (click)="outputCsv($event)">CSV出力</button>
           <a id="csv-donwload"></a> -->
