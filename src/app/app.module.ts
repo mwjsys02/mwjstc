@@ -27,6 +27,7 @@ import { BlankPipe } from './pipes/blank.pipe';
 import { StcstblComponent } from './stcstbl/stcstbl.component';
 import { ShcntChartComponent } from './shcnt-chart/shcnt-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DlCondComponent } from './dl-cond/dl-cond.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     TrantblComponent,
     BlankPipe,
     StcstblComponent,
-    ShcntChartComponent
+    ShcntChartComponent,
+    DlCondComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [GcodeHelpComponent,ShcntChartComponent]
+  entryComponents: [
+    GcodeHelpComponent,
+    ShcntChartComponent,
+    DlCondComponent]
 })
 export class AppModule { }

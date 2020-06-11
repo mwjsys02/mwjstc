@@ -3,10 +3,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
 import { ShcntChartComponent } from '../shcnt-chart/shcnt-chart.component';
+import { DlCondComponent } from '../dl-cond/dl-cond.component';
 import { TrantblComponent } from '../trantbl/trantbl.component';
 import { StcstblComponent } from '../stcstbl/stcstbl.component';
 import { TransService } from '../trans.service';
 import { Stcks, StcksService } from '../stcks.service';
+import { Store, StoreService } from '../store.service';
 import { GoodsService } from '../goods.service';
 // import { HttpClient } from '@angular/common/http';
 import { StockService } from '../stock.service';
@@ -16,10 +18,7 @@ import * as Query from '../graph-ql/queries';
 // import * as fs from 'fs';
 import * as json2csv from 'json2csv';
 
-interface Store {
-  scode: string;
-  sname: string;
-}
+
 // interface ActiveXObject {
 //   new(s: string): any;
 // }
@@ -32,7 +31,7 @@ interface Store {
 })
 export class ViewStockComponent implements OnInit {
   public placehold: string;
-  public stores:Store[]=[];
+  // public stores:Store[]=[];
   public scode: string="";
   public gcode: string="";
   public sukbn: string="";
@@ -51,6 +50,7 @@ export class ViewStockComponent implements OnInit {
   @ViewChild(StcstblComponent,{static: false})
   private stscomp:StcstblComponent;   
   constructor(private gdssrv: GoodsService,
+              public stosrv: StoreService,
               private stcsrv: StockService,
               public stssrv: StcksService,
               private trnsrv: TransService,
@@ -150,20 +150,18 @@ export class ViewStockComponent implements OnInit {
       this.gname = '商品コード未登録';
     }
   }
-  get_Store():Store[] {
+  get_Store():void {
     // this.goods=["NG23-S-WH","NG20-S-WH"];
-    if (this.stores.length == 0) {
-      this.apollo.watchQuery<any>({
-        query: Query.GetQuery2,
-        })
-        .valueChanges
-        .subscribe(({ data }) => {
-          this.stores = data.tblstore;
-          this.placehold = '倉庫選択';
-    
-        });
-    }
-    return this.stores;
+    // if (this.stosrv.get_tblData().length == 0) {
+    this.apollo.watchQuery<any>({
+      query: Query.GetQuery2,
+      })
+      .valueChanges
+      .subscribe(({ data }) => {
+        this.stosrv.set_tblData(data.tblstore);
+        this.placehold = '倉庫選択';
+      });
+    // }
   }
 
   setNext(){
@@ -272,17 +270,29 @@ export class ViewStockComponent implements OnInit {
         });
     }      
   }
-  public async outputCsv(event: any) {
-    // let csv:string="";
-    // console.log("output",this.gcode); 
-    // console.log("外",csv); 
+  public outputCsv(event: any) {
+    
+    let dialogConfig = new MatDialogConfig();
 
-
+    dialogConfig.autoFocus = true;
+       
+    let dialogRef = this.dialog.open(DlCondComponent, dialogConfig);
+ 
+    dialogRef.afterClosed().subscribe(
+      data=>{
+        this.download_csv(data.gcdword,data.scode);
+      }
+    );
+  }
+  
+  public async download_csv(gcwrd:string,scwrd:string) {
+    
     // // CSV ファイルは `UTF-8 BOM有り` で出力する
     // // そうすることで Excel で開いたときに文字化けせずに表示できる
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     // CSVファイルを出力するために Blob 型のインスタンスを作る
-    const blob = new Blob([bom, await this.get_Json()], { type: 'text/csv' });
+    // csvデータは同期処理で取得
+    const blob = new Blob([bom, await this.get_Json(gcwrd,scwrd)], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
     const link: HTMLAnchorElement = this.elementRef.nativeElement.querySelector('#csv-donwload') as HTMLAnchorElement;
@@ -291,36 +301,20 @@ export class ViewStockComponent implements OnInit {
     link.click();
 
     link.href = 'Mwjexe://1ttest1.csv/';
-    link.click();
+    link.click(); 
+
   }
-  get_Json():Promise<string>{
+  get_Json(gcdword:string,scdword:string):Promise<string>{
     return new Promise<string>(resolve => {
         this.apollo.watchQuery<any>({
-        query: Query.GetQuery5
+        query: Query.GetQuery5,
+        variables: { 
+          gcode : gcdword,
+          scode : scdword
+          },
         })
         .valueChanges
         .subscribe(({ data }) => {
-          // let csv:string;
-          // for (let i=0; i < data.tblstock.length; i++ ){  
-          //   CSV = data.tblstock[i].gcode + ',' 
-          //       + data.tblstock[i].storeid + ','
-          //       + data.tblstock[i].stock + ',' 
-          //       + data.tblstock[i].juzan + ','
-          //       + data.tblstock[i].htzan + ','
-          //       + data.tblstock[0].sct01 + ','
-          //       + data.tblstock[0].sct02 + ','
-          //       + data.tblstock[0].sct03 + ','
-          //       + data.tblstock[0].sct04 + ','
-          //       + data.tblstock[0].sct05 + ','
-          //       + data.tblstock[0].sct06 + ','
-          //       + data.tblstock[0].sct07 + ','
-          //       + data.tblstock[0].sct08 + ','
-          //       + data.tblstock[0].sct09 + ','
-          //       + data.tblstock[0].sct10 + ','
-          //       + data.tblstock[0].sct11 + ','
-          //       + data.tblstock[0].sct12 + ;
-          // } 
-          // console.log("subscribe",json2csv.parse(data.tblstock));
           resolve(json2csv.parse(data.tblstock));
         });
     });  

@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>ダウンロード抽出条件</h2>
+<mat-dialog-content>
+    <form fxLayout="row wrap" fxLayoutAlign="start baseline" fxLayoutGap="5px">
+        <mat-form-field fxFlex="0 0 15em">
+            <mat-label>商品コード(前方一致)</mat-label>
+            <input matInput [ngModel]="gcdword" (ngModelChange)="gcdword=$event" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <mat-form-field fxFlex="0 0 20em">
+            <mat-label>商品名(あいまい)</mat-label>
+            <input matInput [ngModel]="gnmword" (ngModelChange)="gnmword=$event" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <mat-form-field fxFlex="0 0 10em" fxFlexOffset="10px">
+            <mat-label>倉庫(空白は全倉庫)</mat-label>
+            <mat-select [(value)]="scode">
+                <ng-container *ngFor="let store of stosrv.get_tblData()">
+                    <mat-option value="{{ store.scode }}">{{ store.scode }} {{ store.sname }}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="dl()">DownLoad</button>
+    <button class="mat-raised-button"(click)="close()">Cancel</button>
+</mat-dialog-actions>

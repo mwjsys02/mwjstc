@@ -87,8 +87,8 @@ query get_utwk($gcode: String!,$scode: String!)  {
 }`;
 
 export const GetQuery5 = gql`
-query get_allstc  {
-  tblstock {
+query get_allstc($gcode: String!,$scode: String!)   {
+  tblstock(where: {gcode: {_ilike:$gcode}, storeid: {_ilike:$scode}}) {
     gcode
     storeid
     htzan

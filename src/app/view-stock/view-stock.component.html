@@ -60,7 +60,7 @@
       </mat-form-field>
       <mat-form-field fxFlex="0 0 10em" fxFlexOffset="10px">
         <mat-select [placeholder]="placehold" [(value)]="scode" (openedChange)="refresh()" required>
-          <ng-container *ngFor="let store of get_Store()">
+          <ng-container *ngFor="let store of stosrv.get_tblData()">
             <mat-option value="{{ store.scode }}">{{ store.scode }} {{ store.sname }}</mat-option>
           </ng-container>
         </mat-select>
@@ -69,7 +69,7 @@
         <mat-label>商品名</mat-label>
         <input matInput [value]="gname" disabled>
       </mat-form-field>
-      <div [style.display]="sukbn=='在庫品' ? 'inline' : 'none'">
+      <div [style.display]="sukbn=='在庫品' ? 'inline' : 'none'" fxLayout="row wrap" fxLayoutAlign="start baseline" fxLayoutGap="5px">
         <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
           <mat-label>受注可能数</mat-label>
           <input matInput numberInput value="{{stock - juzan}}" disabled class="i_num">
