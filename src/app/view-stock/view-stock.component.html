@@ -28,6 +28,10 @@
             ダウンロード
           </button>
           <a id="csv-donwload" data-type="text/csv"></a>
+          <button mat-button><a mat-button href="https://mwj001-my.sharepoint.com/personal/asago00_mwj001_onmicrosoft_com/Documents/%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0/%E9%96%8B%E7%99%BA%E6%A1%88%E4%BB%B6/Pos%E3%83%AC%E3%82%B8/xea20_mn.pdf" target="_blank">
+            <mat-icon>help</mat-icon>
+            ヘルプ
+          </a></button>      
         </div>
         <div class="icon-area" fxLayout="row" fxShow="true" fxHide.gt-sm="true">
           <button mat-button (click)="setNext()">
@@ -104,6 +108,14 @@
       <mat-form-field style="width:6em">
         <mat-label>月平均出荷数</mat-label>
         <input matInput numberInput [value]="moavg | number:'1.2-2'" disabled class="i_num">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>確認時点</mat-label>
+        <input matInput [value]="utime | date:'yy/MM/dd HH:mm'" disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>在庫区分</mat-label>
+        <input matInput [value]="sukbn" disabled>
       </mat-form-field>
     </form>
   </mat-card-subtitle>

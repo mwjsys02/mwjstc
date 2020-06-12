@@ -280,41 +280,44 @@ export class ViewStockComponent implements OnInit {
  
     dialogRef.afterClosed().subscribe(
       data=>{
-        this.download_csv(data.gcdword,data.scode);
+        // console.log(data.arrgcode);
+        this.download_csv(data.arrgcode,data.scode);
       }
     );
   }
   
-  public async download_csv(gcwrd:string,scwrd:string) {
+  public async download_csv(argcd:any,scwrd:string) {
     
     // // CSV ファイルは `UTF-8 BOM有り` で出力する
     // // そうすることで Excel で開いたときに文字化けせずに表示できる
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     // CSVファイルを出力するために Blob 型のインスタンスを作る
     // csvデータは同期処理で取得
-    const blob = new Blob([bom, await this.get_Json(gcwrd,scwrd)], { type: 'text/csv' });
+    console.log("Json前",argcd);
+    const blob = new Blob([bom, await this.get_Json(argcd,scwrd)], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
     const link: HTMLAnchorElement = this.elementRef.nativeElement.querySelector('#csv-donwload') as HTMLAnchorElement;
     link.href = url;
-    link.download = 'test.csv';
+    link.download = 'mwjsys.csv';
     link.click();
 
     link.href = 'Mwjexe://1ttest1.csv/';
     link.click(); 
 
   }
-  get_Json(gcdword:string,scdword:string):Promise<string>{
+  get_Json(argcd:any,scdword:string):Promise<string>{
     return new Promise<string>(resolve => {
         this.apollo.watchQuery<any>({
         query: Query.GetQuery5,
         variables: { 
-          gcode : gcdword,
+          gcode : argcd,
           scode : scdword
           },
         })
         .valueChanges
         .subscribe(({ data }) => {
+          console.log(argcd,data);
           resolve(json2csv.parse(data.tblstock));
         });
     });  

@@ -83,12 +83,13 @@ query get_utwk($gcode: String!,$scode: String!)  {
     sct10
     sct11
     sct12
+    created_at
   }
 }`;
 
 export const GetQuery5 = gql`
-query get_allstc($gcode: String!,$scode: String!)   {
-  tblstock(where: {gcode: {_ilike:$gcode}, storeid: {_ilike:$scode}}) {
+query get_allstc($gcode: [String!]!,$scode: String!)   {
+  tblstock(where: {gcode: {_in:$gcode}, storeid: {_ilike:$scode}}) {
     gcode
     storeid
     htzan

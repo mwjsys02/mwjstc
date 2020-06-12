@@ -20,11 +20,23 @@ export class DlCondComponent implements OnInit {
   }
 
   dl() {
-    console.log("select",this.gcdword);
+    // console.log("select",this.gdssrv.get_Goods());
     if (this.scode==''){
       this.scode='%';
     }
-    this.dialogRef.close({scode:this.scode,gcdword:this.gcdword + '%'});
+    const result = this.gdssrv.get_Goods().filter( obj => { 
+        return (obj.gcode.indexOf(this.gcdword.toUpperCase()) === 0 && obj.gname.indexOf(this.gnmword.toUpperCase()) > -1 );
+      })
+    // let vargcd:string= '"' + result[0].gcode + '"';
+      let vargcd:string[] = [];
+    　for (let i=0;i<result.length;i++){
+      // vargcd += ',"' + result[i].gcode + '"' ;
+      vargcd.push(result[i].gcode);
+    }
+    // vargcd += ']';
+    // this.dialogRef.close({scode:this.scode,gcdword:this.gcdword + '%'});
+    // console.log("select",vargcd);
+    this.dialogRef.close({scode:this.scode,arrgcode:vargcd});
   }
 
   close() {
