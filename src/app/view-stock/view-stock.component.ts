@@ -79,7 +79,9 @@ export class ViewStockComponent implements OnInit {
 
     if (typeof this.route.snapshot.params.gcd != "undefined") {
       this.gcode= this.route.snapshot.params.gcd.toUpperCase();
-      this.scode= this.route.snapshot.params.scd;
+      if  (typeof this.route.snapshot.params.scd != "undefined") {    
+        this.scode= this.route.snapshot.params.scd;
+      }
       // console.log(this.gcode,this.scode);
       // console.log(this.stcsrv.get_Stock(this.gcode,this.scode));
       // this.stock = this.stcsrv.get_Stock(this.gcode,this.scode).stock;
@@ -168,7 +170,6 @@ export class ViewStockComponent implements OnInit {
     let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
     if(i > -1 && i < this.gdssrv.get_Goods().length){
       this.gcode = this.gdssrv.get_Goods()[i+1].gcode;
-      console.log("setNext",this.gcode);
     }
     this.refresh();
   }

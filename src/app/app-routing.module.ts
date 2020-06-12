@@ -13,12 +13,12 @@ const routes: Routes = [
     component: ViewStockComponent
   },
   {
+    path: 'stock/:gcd',
+    component: ViewStockComponent
+  },
+  {
     path: 'stock/:gcd/:scd',
     component: ViewStockComponent
-  // },
-  // {
-  //   path: 'excel',
-  //   component: ViewStockComponent
   }
 ];
 
