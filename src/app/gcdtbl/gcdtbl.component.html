@@ -1,10 +1,10 @@
 <div class="mat-elevation-z8">
   <mat-toolbar>
-    <mat-form-field style="width:6em;">
+    <mat-form-field style="width:10em;">
       <mat-label>品番Filter</mat-label>
       <input matInput [(ngModel)]="gdsservice.filtx" type="url" matInput (keyup)="updateFilter('gcode',$event.target.value)" placeholder="品番">
     </mat-form-field>
-    <mat-form-field style="width:10em;">
+    <mat-form-field style="width:20em;">
       <mat-label>商品名Filter</mat-label>
       <input matInput (keyup)="updateFilter('gname',$event.target.value)" placeholder="商品名">
     </mat-form-field>
