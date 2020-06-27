@@ -11,21 +11,22 @@ const routes: Routes = [
   {
     path: 'stock',
     component: ViewStockComponent
-  },
-  {
-    path: 'stock/:gcd',
-    component: ViewStockComponent
-  },
-  {
-    path: 'stock/:gcd/:scd',
-    component: ViewStockComponent
+  // },
+  // {
+  //   path: 'stock/:gcd',
+  //   component: ViewStockComponent
+  // },
+  // {
+  //   path: 'stock/:gcd/:scd',
+  //   component: ViewStockComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    useHash: true,
-  })],
+  // imports: [RouterModule.forRoot(routes, {
+  //   useHash: true,
+  // })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

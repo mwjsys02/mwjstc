@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef ,ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { GcodeHelpComponent } from '../gcode-help/gcode-help.component';
 import { ShcntChartComponent } from '../shcnt-chart/shcnt-chart.component';
@@ -62,34 +62,33 @@ export class ViewStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.placehold = '倉庫読込中';
-    this.scode = '01';
     this.get_Store();
     this.gdssrv.get_Goods();
     // this.stcsrv.observe.subscribe();
-    // this.route.params.subscribe((params: Params)=>{
-    //     this.gcode= params["gcd"];
-    //     this.scode= '01' ;
-    //     refresh();
-    //   }
-    //   ,
-    //   err => {
-    //     this.gcode= '' ;
-    //   });
+    this.route.queryParamMap.subscribe((params: ParamMap)=>{
+      if (params.get('scd') === null){
+        this.scode = '01';
+      }else{
+        this.scode= params.get('scd');
+      }
+      if (params.get('gcd') === null){
+        this.gcode= '';
+      }else{
+        this.gcode= params.get('gcd');
+        this.gcode.toUpperCase();
+        this.refresh();
+      }
+    });
     this.trnsrv.observe.subscribe();
 
-    if (typeof this.route.snapshot.params.gcd != "undefined") {
-      this.gcode= this.route.snapshot.params.gcd.toUpperCase();
-      if  (typeof this.route.snapshot.params.scd != "undefined") {    
-        this.scode= this.route.snapshot.params.scd;
-      }
-      // console.log(this.gcode,this.scode);
-      // console.log(this.stcsrv.get_Stock(this.gcode,this.scode));
-      // this.stock = this.stcsrv.get_Stock(this.gcode,this.scode).stock;
-      // this.juzan = this.stcsrv.get_Stock(this.gcode,this.scode).juzan;
-      // this.htzan = this.stcsrv.get_Stock(this.gcode,this.scode).htzan;
-      // this.stcsrv.subject.next(this.stcsrv.stock);
-      this.refresh();
-    }
+    // if (typeof this.route.snapshot.params.gcd != "undefined") {
+    //   this.gcode= this.route.snapshot.params.gcd.toUpperCase();
+    //   if  (typeof this.route.snapshot.params.scd != "undefined") {    
+    //     this.scode= this.route.snapshot.params.scd;
+    //   }
+
+    //   this.refresh();
+    // }
     
   }
 
@@ -176,7 +175,7 @@ export class ViewStockComponent implements OnInit {
 
   setPrev(){
     let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
-    if(i > 0 ){
+    if(i > -1 ){
       this.gcode = this.gdssrv.get_Goods()[i-1].gcode;
     }
     this.refresh();
@@ -231,6 +230,7 @@ export class ViewStockComponent implements OnInit {
           this.ndate = data.tblstock[0].ndate;
           this.incnt = data.tblstock[0].incnt;
           this.utime = data.tblstock[0].created_at;
+          console.log(new Date(),this.utime);
           for (let i=0; i < data.tblstock[0].tbltrans.length; i++ ){
             this.trnsrv.set_tblData(data.tblstock[0].tbltrans[i]);
           }
@@ -261,6 +261,7 @@ export class ViewStockComponent implements OnInit {
           this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
           this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
           this.moavg = this.stcsrv.get_Scavg();
+          this.utime = data.tblstock[0].created_at;
           this.stssrv.reset_Stcks();
           for (let i=0; i < data.tblgczai.length; i++ ){
             const wAble:number = data.tblgczai[i].setgoods.stock - data.tblgczai[i].setgoods.juzan;

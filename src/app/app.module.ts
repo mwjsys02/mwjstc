@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { GraphQLModule } from './graph-ql/graph-ql.module';
 import { ViewStockComponent } from './view-stock/view-stock.component';
 import { GcodeHelpComponent } from './gcode-help/gcode-help.component';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,6 +30,11 @@ import { StcstblComponent } from './stcstbl/stcstbl.component';
 import { ShcntChartComponent } from './shcnt-chart/shcnt-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DlCondComponent } from './dl-cond/dl-cond.component';
+
+import localeJa from '@angular/common/locales/ja';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeJa);
 
 @NgModule({
   declarations: [
@@ -64,11 +70,15 @@ import { DlCondComponent } from './dl-cond/dl-cond.component';
     ,MatToolbarModule
 
   ],
-  providers: [],
+  providers: [ 
+    { provide: LOCALE_ID, useValue: 'ja-JP' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ja' }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     GcodeHelpComponent,
     ShcntChartComponent,
-    DlCondComponent]
+    DlCondComponent
+  ]
 })
 export class AppModule { }
