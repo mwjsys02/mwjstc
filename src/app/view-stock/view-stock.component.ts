@@ -230,7 +230,7 @@ export class ViewStockComponent implements OnInit {
           this.ndate = data.tblstock[0].ndate;
           this.incnt = data.tblstock[0].incnt;
           this.utime = data.tblstock[0].created_at;
-          console.log(new Date(),this.utime);
+          // console.log(new Date(),this.utime);
           for (let i=0; i < data.tblstock[0].tbltrans.length; i++ ){
             this.trnsrv.set_tblData(data.tblstock[0].tbltrans[i]);
           }

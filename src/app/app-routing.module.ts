@@ -5,7 +5,7 @@ import { ViewStockComponent } from  './view-stock/view-stock.component';
 
 const routes: Routes = [
     { path: '', 
-    redirectTo: 'stock',
+    redirectTo: '/stock',
     pathMatch: 'full' 
   },
   {
