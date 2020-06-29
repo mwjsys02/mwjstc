@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'stock/:gcd/:scd',
     component: ViewStockComponent
+  },
+  {
+    path: '**',
+    component: ViewStockComponent
   }
 ];
 
