@@ -11,14 +11,14 @@ const routes: Routes = [
   {
     path: 'stock',
     component: ViewStockComponent
-  // },
-  // {
-  //   path: 'stock/:gcd',
-  //   component: ViewStockComponent
-  // },
-  // {
-  //   path: 'stock/:gcd/:scd',
-  //   component: ViewStockComponent
+  },
+  {
+    path: 'stock/:gcd',
+    component: ViewStockComponent
+  },
+  {
+    path: 'stock/:gcd/:scd',
+    component: ViewStockComponent
   }
 ];
 

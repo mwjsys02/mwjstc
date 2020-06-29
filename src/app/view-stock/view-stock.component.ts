@@ -64,8 +64,8 @@ export class ViewStockComponent implements OnInit {
     this.placehold = '倉庫読込中';
     this.get_Store();
     this.gdssrv.get_Goods();
-    // this.stcsrv.observe.subscribe();
-    this.route.queryParamMap.subscribe((params: ParamMap)=>{
+    // this.route.queryParamMap.subscribe((params: ParamMap)=>{
+    this.route.paramMap.subscribe((params: ParamMap)=>{
       if (params.get('scd') === null){
         this.scode = '01';
       }else{
