@@ -270,7 +270,8 @@ export class ViewStockComponent implements OnInit {
           } 
           this.stscomp.refresh();
         });
-    }      
+    }
+    history.replaceState('','','./stock/' + this.gcode + '/' + this.scode);   
   }
   public outputCsv(event: any) {
     
