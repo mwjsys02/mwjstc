@@ -74,7 +74,8 @@
         <input matInput [value]="gname" disabled>
       </mat-form-field>
       <div [style.display]="sukbn=='在庫品' ? 'inline' : 'none'" fxLayout="row wrap" fxLayoutAlign="start baseline" fxLayoutGap="5px">
-        <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
+      <!-- <div [style.display]="sukbn=='在庫品' ? 'inline' : 'none'"> -->
+        <mat-form-field style="width:4em;font-size:larger;font-weight:bolder;">
           <mat-label>受注可能数</mat-label>
           <input matInput numberInput value="{{stock - juzan}}" disabled class="i_num">
         </mat-form-field>
@@ -86,7 +87,7 @@
           <mat-label>受注残</mat-label>
           <input matInput numberInput [value]="juzan" disabled class="i_num">
         </mat-form-field>
-        <mat-form-field style="width:12em">
+        <mat-form-field style="width:7em">
           <mat-label>入荷予定日</mat-label>
           <input matInput [value]="ndate | blank" disabled>
         </mat-form-field>
@@ -99,15 +100,19 @@
           <input matInput numberInput [value]="htzan" disabled class="i_num">
         </mat-form-field>
       </div>
-      <div [style.display]="sukbn=='セット品' ? 'inline' : 'none'">
-        <mat-form-field style="width:4em" style="font-size:larger;font-weight:bolder;">
+      <!-- <div > -->
+        <mat-form-field style="width:4em;font-size:larger;font-weight:bolder;" [style.display]="sukbn=='セット品' ? 'inline' : 'none'">
           <mat-label>受注可能数</mat-label>
           <input matInput numberInput value="{{stssrv.get_paabl()}}"disabled class="i_num">
         </mat-form-field>  
-      </div>
+      <!-- </div> -->
       <mat-form-field style="width:6em">
         <mat-label>月平均出荷数</mat-label>
         <input matInput numberInput [value]="moavg | number:'1.2-2'" disabled class="i_num">
+      </mat-form-field>
+      <mat-form-field style="width:6em">
+        <mat-label>出荷数昨対</mat-label>
+        <input matInput numberInput [value]="motai | percent" disabled class="i_num">
       </mat-form-field>
       <mat-form-field>
         <mat-label>確認時点</mat-label>

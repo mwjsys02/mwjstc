@@ -39,6 +39,18 @@ query get_stock($gcode: String!,$scode: String!)  {
     gcode
     storeid
     created_at
+    sch01
+    sch02
+    sch03
+    sch04
+    sch05
+    sch06
+    sch07
+    sch08
+    sch09
+    sch10
+    sch11
+    sch12
     tbltrans {
       gcode
       sday
@@ -84,6 +96,18 @@ query get_utwk($gcode: String!,$scode: String!)  {
     sct11
     sct12
     created_at
+    sch01
+    sch02
+    sch03
+    sch04
+    sch05
+    sch06
+    sch07
+    sch08
+    sch09
+    sch10
+    sch11
+    sch12
   }
 }`;
 
@@ -107,5 +131,24 @@ query get_allstc($gcode: [String!]!,$scode: String!)   {
     sct10
     sct11
     sct12
+    sch01
+    sch02
+    sch03
+    sch04
+    sch05
+    sch06
+    sch07
+    sch08
+    sch09
+    sch10
+    sch11
+    sch12
+  }
+}`;
+export const GetQuery6 = gql`
+query get_staff {
+  tblstaff {
+    tcode
+    name
   }
 }`;

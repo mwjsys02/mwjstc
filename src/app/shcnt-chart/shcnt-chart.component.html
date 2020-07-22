@@ -1,18 +1,24 @@
-<h2 mat-dialog-title>月別出荷数</h2>
+<h2 mat-dialog-title>月別出荷数・出荷数昨対</h2>
 <mat-dialog-content>
-    <ngx-charts-bar-vertical
+    <combo-chart-component
         [view]="view"
-        [scheme]="colorScheme"
+        [scheme]="comboBarScheme"
+        [colorSchemeLine]="lineChartScheme"
         [results]="chartData"
+        [lineChart]="lineChartSeries"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
         [legend]="showLegend"
+        [legendTitle]="legendTitle"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
+        [showRightYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel">
-    </ngx-charts-bar-vertical> 
+        [yAxisLabel]="yAxisLabel"
+        [yAxisLabelRight]="yAxisLabelRight"
+        [showGridLines]="showGridLines">
+    </combo-chart-component> 
 
 </mat-dialog-content>
 <mat-dialog-actions>

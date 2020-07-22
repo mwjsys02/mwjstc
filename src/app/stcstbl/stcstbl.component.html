@@ -9,8 +9,8 @@
         <td mat-cell *matCellDef="let row">{{row.irisu}}</td>
       </ng-container>
       <ng-container matColumnDef="able">
-        <th mat-header-cell *matHeaderCellDef>可能数</th>
-        <td mat-cell *matCellDef="let row">{{row.able }}</td>
+        <th mat-header-cell *matHeaderCellDef style="font-weight:bolder;">可能数</th>
+        <td mat-cell *matCellDef="let row" style="font-weight:bolder;">{{row.able }}</td>
       </ng-container>        
       <ng-container matColumnDef="stock">
         <th mat-header-cell *matHeaderCellDef>在庫数</th>

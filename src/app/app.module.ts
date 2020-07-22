@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -33,6 +34,9 @@ import { DlCondComponent } from './dl-cond/dl-cond.component';
 
 import localeJa from '@angular/common/locales/ja';
 import { registerLocaleData } from '@angular/common';
+import { StaffPipe } from './pipes/staff.pipe';
+import { ComboChartComponent } from './combo-chart/combo-chart.component';
+import { ComboSeriesVerticalComponent } from './combo-chart/combo-series-vertical.component';
 
 registerLocaleData(localeJa);
 
@@ -46,7 +50,10 @@ registerLocaleData(localeJa);
     BlankPipe,
     StcstblComponent,
     ShcntChartComponent,
-    DlCondComponent
+    DlCondComponent,
+    StaffPipe,
+    ComboChartComponent,
+    ComboSeriesVerticalComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +73,7 @@ registerLocaleData(localeJa);
     ,MatInputModule
     ,MatPaginatorModule
     ,MatSelectModule
+    ,MatSortModule
     ,MatTableModule
     ,MatToolbarModule
 

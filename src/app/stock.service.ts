@@ -34,11 +34,14 @@ export class StockService {
     // sct11:0,
     // sct12:0
   ];
+  public shlas:number[] =[
+    0,0,0,0,0,0,0,0,0,0,0,0
+  ];
   public scavg:number;
   constructor() {}
-  get_Scavg():number {
+  get_Scavg(arr:number[]):number {
     // console.log(this.shcnt);
-    this.scavg = this.shcnt.reduce((a,b)=>{return a+b;}) / 12;
+    this.scavg = arr.reduce((a,b)=>{return a+b;}) / 12;
     return this.scavg;
   }
   get_Shcnt():number[] {

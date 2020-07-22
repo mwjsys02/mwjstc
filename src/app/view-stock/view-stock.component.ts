@@ -12,12 +12,13 @@ import { Store, StoreService } from '../store.service';
 import { GoodsService } from '../goods.service';
 // import { HttpClient } from '@angular/common/http';
 import { StockService } from '../stock.service';
+import { StaffService } from '../staff.service';
 // import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import * as Query from '../graph-ql/queries';
+import * as FileSaver from 'file-saver';
 // import * as fs from 'fs';
 import * as json2csv from 'json2csv';
-
 
 // interface ActiveXObject {
 //   new(s: string): any;
@@ -42,6 +43,7 @@ export class ViewStockComponent implements OnInit {
   public incnt: number=0;
   public htzan: number=0;
   public moavg: number=0;
+  public motai;
   public utime: Date;
   // public scdbk: string="";
   // public gcdbk: string="";
@@ -53,6 +55,7 @@ export class ViewStockComponent implements OnInit {
               public stosrv: StoreService,
               private stcsrv: StockService,
               public stssrv: StcksService,
+              public stfsrv: StaffService,
               private trnsrv: TransService,
               private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -62,9 +65,10 @@ export class ViewStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.placehold = '倉庫読込中';
+    this.qry_Staff();
     this.get_Store();
     this.gdssrv.get_Goods();
-    // this.route.queryParamMap.subscribe((params: ParamMap)=>{
+ 
     this.route.paramMap.subscribe((params: ParamMap)=>{
       if (params.get('scd') === null){
         this.scode = '01';
@@ -79,16 +83,6 @@ export class ViewStockComponent implements OnInit {
         this.refresh();
       }
     });
-    this.trnsrv.observe.subscribe();
-
-    // if (typeof this.route.snapshot.params.gcd != "undefined") {
-    //   this.gcode= this.route.snapshot.params.gcd.toUpperCase();
-    //   if  (typeof this.route.snapshot.params.scd != "undefined") {    
-    //     this.scode= this.route.snapshot.params.scd;
-    //   }
-
-    //   this.refresh();
-    // }
     
   }
 
@@ -132,6 +126,7 @@ export class ViewStockComponent implements OnInit {
     
     dialogConfig.data = {
         shcnt: this.stcsrv.shcnt,
+        shlas: this.stcsrv.shlas,
         utime: this.utime
     };
     
@@ -164,7 +159,17 @@ export class ViewStockComponent implements OnInit {
       });
     // }
   }
-
+  
+  qry_Staff():void {
+    this.apollo.watchQuery<any>({
+      query: Query.GetQuery6
+    })
+      .valueChanges
+      .subscribe(({ data })=> {
+        this.stfsrv.tbldata=data.tblstaff;
+        // console.log("qry",this.stfsrv.tbldata);
+      });
+  }
   setNext(){
     let i:number = this.gdssrv.get_Goods().findIndex(obj => obj.gcode == this.gcode.toUpperCase());
     if(i > -1 && i < this.gdssrv.get_Goods().length){
@@ -226,7 +231,24 @@ export class ViewStockComponent implements OnInit {
           this.stcsrv.shcnt[9] = data.tblstock[0].sct10;
           this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
           this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
-          this.moavg = this.stcsrv.get_Scavg();
+          this.stcsrv.shlas[0] = data.tblstock[0].sch01;
+          this.stcsrv.shlas[1] = data.tblstock[0].sch02;
+          this.stcsrv.shlas[2] = data.tblstock[0].sch03;
+          this.stcsrv.shlas[3] = data.tblstock[0].sch04;
+          this.stcsrv.shlas[4] = data.tblstock[0].sch05;
+          this.stcsrv.shlas[5] = data.tblstock[0].sch06;
+          this.stcsrv.shlas[6] = data.tblstock[0].sch07;
+          this.stcsrv.shlas[7] = data.tblstock[0].sch08;
+          this.stcsrv.shlas[8] = data.tblstock[0].sch09;
+          this.stcsrv.shlas[9] = data.tblstock[0].sch10;
+          this.stcsrv.shlas[10] = data.tblstock[0].sch11;
+          this.stcsrv.shlas[11] = data.tblstock[0].sch12;
+          this.moavg = this.stcsrv.get_Scavg(this.stcsrv.shcnt);
+          if (this.stcsrv.get_Scavg(this.stcsrv.shlas) !== 0){
+            this.motai = this.stcsrv.get_Scavg(this.stcsrv.shcnt) / this.stcsrv.get_Scavg(this.stcsrv.shlas);
+          }else{
+            this.motai = "-";
+          }
           this.ndate = data.tblstock[0].ndate;
           this.incnt = data.tblstock[0].incnt;
           this.utime = data.tblstock[0].created_at;
@@ -260,7 +282,24 @@ export class ViewStockComponent implements OnInit {
           this.stcsrv.shcnt[9] = data.tblstock[0].sct10;
           this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
           this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
-          this.moavg = this.stcsrv.get_Scavg();
+          this.stcsrv.shlas[0] = data.tblstock[0].sch01;
+          this.stcsrv.shlas[1] = data.tblstock[0].sch02;
+          this.stcsrv.shlas[2] = data.tblstock[0].sch03;
+          this.stcsrv.shlas[3] = data.tblstock[0].sch04;
+          this.stcsrv.shlas[4] = data.tblstock[0].sch05;
+          this.stcsrv.shlas[5] = data.tblstock[0].sch06;
+          this.stcsrv.shlas[6] = data.tblstock[0].sch07;
+          this.stcsrv.shlas[7] = data.tblstock[0].sch08;
+          this.stcsrv.shlas[8] = data.tblstock[0].sch09;
+          this.stcsrv.shlas[9] = data.tblstock[0].sch10;
+          this.stcsrv.shlas[10] = data.tblstock[0].sch11;
+          this.stcsrv.shlas[11] = data.tblstock[0].sch12;
+          this.moavg = this.stcsrv.get_Scavg(this.stcsrv.shcnt);
+          if (this.stcsrv.get_Scavg(this.stcsrv.shlas) !== 0){
+            this.motai = this.stcsrv.get_Scavg(this.stcsrv.shcnt) / this.stcsrv.get_Scavg(this.stcsrv.shlas);
+          }else{
+            this.motai = "-";  
+          }
           this.utime = data.tblstock[0].created_at;
           this.stssrv.reset_Stcks();
           for (let i=0; i < data.tblgczai.length; i++ ){
@@ -293,20 +332,18 @@ export class ViewStockComponent implements OnInit {
     
     // // CSV ファイルは `UTF-8 BOM有り` で出力する
     // // そうすることで Excel で開いたときに文字化けせずに表示できる
-    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    // const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     // CSVファイルを出力するために Blob 型のインスタンスを作る
     // csvデータは同期処理で取得
-    console.log("Json前",argcd);
-    const blob = new Blob([bom, await this.get_Json(argcd,scwrd)], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
+    // console.log("Json前",argcd);
+    const blob = new Blob([await this.get_Json(argcd,scwrd)], { type: 'text/csv' });
+    // const url = window.URL.createObjectURL(blob);
+
+    FileSaver.saveAs(blob, 'mwjsys.csv');
 
     const link: HTMLAnchorElement = this.elementRef.nativeElement.querySelector('#csv-donwload') as HTMLAnchorElement;
-    link.href = url;
-    link.download = 'mwjsys.csv';
-    link.click();
-
     link.href = 'Mwjexe://1ttest1.csv/';
-    link.click(); 
+    link.click();
 
   }
   get_Json(argcd:any,scdword:string):Promise<string>{
