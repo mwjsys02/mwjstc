@@ -154,7 +154,7 @@ export class ViewStockComponent implements OnInit {
       })
       .valueChanges
       .subscribe(({ data }) => {
-        this.stosrv.set_tblData(data.tblstore);
+        this.stosrv.set_tblData(data.tmpstc_tblstore);
         this.placehold = '倉庫選択';
       });
     // }
@@ -166,7 +166,7 @@ export class ViewStockComponent implements OnInit {
     })
       .valueChanges
       .subscribe(({ data })=> {
-        this.stfsrv.tbldata=data.tblstaff;
+        this.stfsrv.tbldata=data.tmpstc_tblstaff;
         // console.log("qry",this.stfsrv.tbldata);
       });
   }
@@ -216,45 +216,45 @@ export class ViewStockComponent implements OnInit {
         .subscribe(({ data }) => {
           // console.log("ref_Query",data.tblstock);
           this.trnsrv.reset_Trans();
-          this.stock = data.tblstock[0].stock;
-          this.juzan = data.tblstock[0].juzan;
-          this.htzan = data.tblstock[0].htzan;
-          this.stcsrv.shcnt[0] = data.tblstock[0].sct01;
-          this.stcsrv.shcnt[1] = data.tblstock[0].sct02;
-          this.stcsrv.shcnt[2] = data.tblstock[0].sct03;
-          this.stcsrv.shcnt[3] = data.tblstock[0].sct04;
-          this.stcsrv.shcnt[4] = data.tblstock[0].sct05;
-          this.stcsrv.shcnt[5] = data.tblstock[0].sct06;
-          this.stcsrv.shcnt[6] = data.tblstock[0].sct07;
-          this.stcsrv.shcnt[7] = data.tblstock[0].sct08;
-          this.stcsrv.shcnt[8] = data.tblstock[0].sct09;
-          this.stcsrv.shcnt[9] = data.tblstock[0].sct10;
-          this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
-          this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
-          this.stcsrv.shlas[0] = data.tblstock[0].sch01;
-          this.stcsrv.shlas[1] = data.tblstock[0].sch02;
-          this.stcsrv.shlas[2] = data.tblstock[0].sch03;
-          this.stcsrv.shlas[3] = data.tblstock[0].sch04;
-          this.stcsrv.shlas[4] = data.tblstock[0].sch05;
-          this.stcsrv.shlas[5] = data.tblstock[0].sch06;
-          this.stcsrv.shlas[6] = data.tblstock[0].sch07;
-          this.stcsrv.shlas[7] = data.tblstock[0].sch08;
-          this.stcsrv.shlas[8] = data.tblstock[0].sch09;
-          this.stcsrv.shlas[9] = data.tblstock[0].sch10;
-          this.stcsrv.shlas[10] = data.tblstock[0].sch11;
-          this.stcsrv.shlas[11] = data.tblstock[0].sch12;
+          this.stock = data.tmpstc_tblstock[0].stock;
+          this.juzan = data.tmpstc_tblstock[0].juzan;
+          this.htzan = data.tmpstc_tblstock[0].htzan;
+          this.stcsrv.shcnt[0] = data.tmpstc_tblstock[0].sct01;
+          this.stcsrv.shcnt[1] = data.tmpstc_tblstock[0].sct02;
+          this.stcsrv.shcnt[2] = data.tmpstc_tblstock[0].sct03;
+          this.stcsrv.shcnt[3] = data.tmpstc_tblstock[0].sct04;
+          this.stcsrv.shcnt[4] = data.tmpstc_tblstock[0].sct05;
+          this.stcsrv.shcnt[5] = data.tmpstc_tblstock[0].sct06;
+          this.stcsrv.shcnt[6] = data.tmpstc_tblstock[0].sct07;
+          this.stcsrv.shcnt[7] = data.tmpstc_tblstock[0].sct08;
+          this.stcsrv.shcnt[8] = data.tmpstc_tblstock[0].sct09;
+          this.stcsrv.shcnt[9] = data.tmpstc_tblstock[0].sct10;
+          this.stcsrv.shcnt[10] = data.tmpstc_tblstock[0].sct11;
+          this.stcsrv.shcnt[11] = data.tmpstc_tblstock[0].sct12;
+          this.stcsrv.shlas[0] = data.tmpstc_tblstock[0].sch01;
+          this.stcsrv.shlas[1] = data.tmpstc_tblstock[0].sch02;
+          this.stcsrv.shlas[2] = data.tmpstc_tblstock[0].sch03;
+          this.stcsrv.shlas[3] = data.tmpstc_tblstock[0].sch04;
+          this.stcsrv.shlas[4] = data.tmpstc_tblstock[0].sch05;
+          this.stcsrv.shlas[5] = data.tmpstc_tblstock[0].sch06;
+          this.stcsrv.shlas[6] = data.tmpstc_tblstock[0].sch07;
+          this.stcsrv.shlas[7] = data.tmpstc_tblstock[0].sch08;
+          this.stcsrv.shlas[8] = data.tmpstc_tblstock[0].sch09;
+          this.stcsrv.shlas[9] = data.tmpstc_tblstock[0].sch10;
+          this.stcsrv.shlas[10] = data.tmpstc_tblstock[0].sch11;
+          this.stcsrv.shlas[11] = data.tmpstc_tblstock[0].sch12;
           this.moavg = this.stcsrv.get_Scavg(this.stcsrv.shcnt);
           if (this.stcsrv.get_Scavg(this.stcsrv.shlas) !== 0){
             this.motai = this.stcsrv.get_Scavg(this.stcsrv.shcnt) / this.stcsrv.get_Scavg(this.stcsrv.shlas);
           }else{
-            this.motai = "-";
+            this.motai = 0;
           }
-          this.ndate = data.tblstock[0].ndate;
-          this.incnt = data.tblstock[0].incnt;
-          this.utime = data.tblstock[0].created_at;
+          this.ndate = data.tmpstc_tblstock[0].ndate;
+          this.incnt = data.tmpstc_tblstock[0].incnt;
+          this.utime = data.tmpstc_tblstock[0].created_at;
           // console.log(new Date(),this.utime);
-          for (let i=0; i < data.tblstock[0].tbltrans.length; i++ ){
-            this.trnsrv.set_tblData(data.tblstock[0].tbltrans[i]);
+          for (let i=0; i < data.tmpstc_tblstock[0].tbltrans.length; i++ ){
+            this.trnsrv.set_tblData(data.tmpstc_tblstock[0].tbltrans[i]);
           }
           // console.log("refresh前",this.trncomp);
           this.trncomp.refresh();
@@ -270,41 +270,41 @@ export class ViewStockComponent implements OnInit {
         })
         .valueChanges
         .subscribe(({ data }) => {
-          this.stcsrv.shcnt[0] = data.tblstock[0].sct01;
-          this.stcsrv.shcnt[1] = data.tblstock[0].sct02;
-          this.stcsrv.shcnt[2] = data.tblstock[0].sct03;
-          this.stcsrv.shcnt[3] = data.tblstock[0].sct04;
-          this.stcsrv.shcnt[4] = data.tblstock[0].sct05;
-          this.stcsrv.shcnt[5] = data.tblstock[0].sct06;
-          this.stcsrv.shcnt[6] = data.tblstock[0].sct07;
-          this.stcsrv.shcnt[7] = data.tblstock[0].sct08;
-          this.stcsrv.shcnt[8] = data.tblstock[0].sct09;
-          this.stcsrv.shcnt[9] = data.tblstock[0].sct10;
-          this.stcsrv.shcnt[10] = data.tblstock[0].sct11;
-          this.stcsrv.shcnt[11] = data.tblstock[0].sct12;
-          this.stcsrv.shlas[0] = data.tblstock[0].sch01;
-          this.stcsrv.shlas[1] = data.tblstock[0].sch02;
-          this.stcsrv.shlas[2] = data.tblstock[0].sch03;
-          this.stcsrv.shlas[3] = data.tblstock[0].sch04;
-          this.stcsrv.shlas[4] = data.tblstock[0].sch05;
-          this.stcsrv.shlas[5] = data.tblstock[0].sch06;
-          this.stcsrv.shlas[6] = data.tblstock[0].sch07;
-          this.stcsrv.shlas[7] = data.tblstock[0].sch08;
-          this.stcsrv.shlas[8] = data.tblstock[0].sch09;
-          this.stcsrv.shlas[9] = data.tblstock[0].sch10;
-          this.stcsrv.shlas[10] = data.tblstock[0].sch11;
-          this.stcsrv.shlas[11] = data.tblstock[0].sch12;
+          this.stcsrv.shcnt[0] = data.tmpstc_tblstock[0].sct01;
+          this.stcsrv.shcnt[1] = data.tmpstc_tblstock[0].sct02;
+          this.stcsrv.shcnt[2] = data.tmpstc_tblstock[0].sct03;
+          this.stcsrv.shcnt[3] = data.tmpstc_tblstock[0].sct04;
+          this.stcsrv.shcnt[4] = data.tmpstc_tblstock[0].sct05;
+          this.stcsrv.shcnt[5] = data.tmpstc_tblstock[0].sct06;
+          this.stcsrv.shcnt[6] = data.tmpstc_tblstock[0].sct07;
+          this.stcsrv.shcnt[7] = data.tmpstc_tblstock[0].sct08;
+          this.stcsrv.shcnt[8] = data.tmpstc_tblstock[0].sct09;
+          this.stcsrv.shcnt[9] = data.tmpstc_tblstock[0].sct10;
+          this.stcsrv.shcnt[10] = data.tmpstc_tblstock[0].sct11;
+          this.stcsrv.shcnt[11] = data.tmpstc_tblstock[0].sct12;
+          this.stcsrv.shlas[0] = data.tmpstc_tblstock[0].sch01;
+          this.stcsrv.shlas[1] = data.tmpstc_tblstock[0].sch02;
+          this.stcsrv.shlas[2] = data.tmpstc_tblstock[0].sch03;
+          this.stcsrv.shlas[3] = data.tmpstc_tblstock[0].sch04;
+          this.stcsrv.shlas[4] = data.tmpstc_tblstock[0].sch05;
+          this.stcsrv.shlas[5] = data.tmpstc_tblstock[0].sch06;
+          this.stcsrv.shlas[6] = data.tmpstc_tblstock[0].sch07;
+          this.stcsrv.shlas[7] = data.tmpstc_tblstock[0].sch08;
+          this.stcsrv.shlas[8] = data.tmpstc_tblstock[0].sch09;
+          this.stcsrv.shlas[9] = data.tmpstc_tblstock[0].sch10;
+          this.stcsrv.shlas[10] = data.tmpstc_tblstock[0].sch11;
+          this.stcsrv.shlas[11] = data.tmpstc_tblstock[0].sch12;
           this.moavg = this.stcsrv.get_Scavg(this.stcsrv.shcnt);
           if (this.stcsrv.get_Scavg(this.stcsrv.shlas) !== 0){
             this.motai = this.stcsrv.get_Scavg(this.stcsrv.shcnt) / this.stcsrv.get_Scavg(this.stcsrv.shlas);
           }else{
             this.motai = "-";  
           }
-          this.utime = data.tblstock[0].created_at;
+          this.utime = data.tmpstc_tblstock[0].created_at;
           this.stssrv.reset_Stcks();
-          for (let i=0; i < data.tblgczai.length; i++ ){
-            const wAble:number = data.tblgczai[i].setgoods.stock - data.tblgczai[i].setgoods.juzan;
-            const wStck:Stcks = {irisu:data.tblgczai[i].irisu, ...data.tblgczai[i].setgoods, able: wAble };
+          for (let i=0; i < data.tmpstc_tblgczai.length; i++ ){
+            const wAble:number = data.tmpstc_tblgczai[i].setgoods.stock - data.tmpstc_tblgczai[i].setgoods.juzan;
+            const wStck:Stcks = {irisu:data.tmpstc_tblgczai[i].irisu, ...data.tmpstc_tblgczai[i].setgoods, able: wAble };
             this.stssrv.set_tblData(wStck);
           } 
           this.stscomp.refresh();
@@ -358,7 +358,7 @@ export class ViewStockComponent implements OnInit {
         .valueChanges
         .subscribe(({ data }) => {
           console.log(argcd,data);
-          resolve(json2csv.parse(data.tblstock));
+          resolve(json2csv.parse(data.tmpstc_tblstock));
         });
     });  
   }

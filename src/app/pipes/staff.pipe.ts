@@ -9,7 +9,7 @@ export class StaffPipe implements PipeTransform {
   transform(value: string): string {
     let sname: string;
     let i:number = this.stfsrv.tbldata.findIndex(obj => obj.tcode == value.trim());
-    console.log(value,i);
+    // console.log(value,i);
     if(i > -1 ){
       sname = this.stfsrv.tbldata[i].name;
     } else {

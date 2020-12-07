@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const GetQuery1 = gql`
 query get_goods {
-  tblgoods(order_by: {gcode: asc}) {
+  tmpstc_tblgoods(order_by: {gcode: asc}) {
     gcode
     gname
     sukbn
@@ -10,7 +10,7 @@ query get_goods {
 }`;
 export const GetQuery2 = gql`
 query get_store {
-  tblstore {
+  tmpstc_tblstore {
     scode
     sname
   }
@@ -18,7 +18,7 @@ query get_store {
 
 export const GetQuery3 = gql`
 query get_stock($gcode: String!,$scode: String!)  {
-  tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
+  tmpstc_tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
     htzan
     juzan
     stock
@@ -70,7 +70,7 @@ query get_stock($gcode: String!,$scode: String!)  {
 
 export const GetQuery4 = gql`
 query get_utwk($gcode: String!,$scode: String!)  {
-  tblgczai(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
+  tmpstc_tblgczai(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
     gcode
     irisu
     setgoods {
@@ -82,7 +82,7 @@ query get_utwk($gcode: String!,$scode: String!)  {
       incnt
     }
   }
-  tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
+  tmpstc_tblstock(where: {gcode: {_eq:$gcode}, storeid: {_eq:$scode}}) {
     sct01
     sct02
     sct03
@@ -113,7 +113,7 @@ query get_utwk($gcode: String!,$scode: String!)  {
 
 export const GetQuery5 = gql`
 query get_allstc($gcode: [String!]!,$scode: String!)   {
-  tblstock(where: {gcode: {_in:$gcode}, storeid: {_ilike:$scode}}) {
+  tmpstc_tblstock(where: {gcode: {_in:$gcode}, storeid: {_ilike:$scode}}) {
     gcode
     storeid
     htzan
@@ -147,7 +147,7 @@ query get_allstc($gcode: [String!]!,$scode: String!)   {
 }`;
 export const GetQuery6 = gql`
 query get_staff {
-  tblstaff {
+  tmpstc_tblstaff {
     tcode
     name
   }

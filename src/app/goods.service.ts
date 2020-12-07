@@ -29,7 +29,7 @@ export class GoodsService {
         })
         .valueChanges
         .subscribe(({ data }) => {
-          this.goods = data.tblgoods ;
+          this.goods = data.tmpstc_tblgoods ;
         });
     }  
     return this.goods;
