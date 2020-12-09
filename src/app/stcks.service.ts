@@ -51,7 +51,7 @@ export class StcksService {
   get_paabl():number {
     let paabl:number=9999;
     for (let i=0; i < this.tbldata.length; i++ ){
-      const wAble = this.tbldata[i].able / this.tbldata[i].irisu;
+      const wAble = Math.floor(this.tbldata[i].able / this.tbldata[i].irisu);
       if ( wAble < paabl ){
         paabl = wAble;
       }
